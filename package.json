@@ -1,0 +1,22 @@
+{
+  "name": "node-red-contrib-hubspot",
+  "version": "1.0.0",
+  "description": "Hubspot integration for Node-Red",
+  "repository": "git@gitlab.com:tucan-ai/backend/node-red-contrib-hubspot.git",
+  "license": "MIT",
+  "keywords": [
+    "node-red"
+  ],
+  "node-red": {
+    "nodes": {
+      "hubspot-account": "account/account.js",
+      "hubspot-api-request": "api-request/api-request.js",
+      "hubspot-company-get-by-id": "company/get-by-id/get-by-id.js",
+      "hubspot-search": "search/search.js"
+    }
+  },
+  "dependencies": {
+    "hubspot": "^2.3.14",
+    "mustache": "^4.2.0"
+  }
+}

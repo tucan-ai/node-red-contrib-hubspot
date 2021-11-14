@@ -1,0 +1,91 @@
+<script type="text/javascript">
+  RED.nodes.registerType('hubspot-search',{
+    category: 'hubspot',
+    paletteLabel: 'Search',
+    color: '#ff7a59',
+    icon: "font-awesome/fa-search",
+    defaults: {
+      account: { value: "", type: "hubspot-account" },
+      name: { value: "" },
+      search: { value: "{}" },
+      object: { value: "companies" },
+      output: { value: "payload" },
+    },
+    inputs: 1,
+    outputs: 3,
+    outputLabels: [
+      'One Result',
+      'More than one Result',
+      'No Results'
+    ],
+    label: function() {
+      return this.name || "Search";
+    },
+    oneditsave: function() {
+      this.search = this.editor.getValue();
+      this.editor.destroy();
+      delete this.editor;
+    },
+    oneditcancel: function() {
+      this.editor.destroy();
+      delete this.editor;
+    },
+    oneditprepare: function() {
+      $("#node-input-output").typedInput({
+        type:"msg",
+        types:["msg"],
+        typeField: "#node-input-output-type"
+      })
+      $("#node-input-object").typedInput({
+        types: [
+          {
+            value: "companies",
+            options: [
+              { value: "companies", label: "Companies"},
+              { value: "contacts", label: "Contacts"},
+              { value: "deals", label: "Deals"},
+              { value: "products", label: "Products"},
+              { value: "tickets", label: "Tickets"},
+              { value: "line_items", label: "Line_items"},
+              { value: "quotes", label: "Quotes"},
+            ]
+          }
+        ]
+      })
+      this.editor = RED.editor.createEditor({
+        id: 'node-input-search-editor',
+        type:"template",
+        mode: 'ace/mode/json',
+        value: this.search
+      })
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="hubspot-search">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-account"><i class="fa fa-institution"></i> Hubspot</label>
+    <input type="text" id="node-input-account" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-object"><i class="fa fa-institution"></i> Object</label>
+    <input type="text" id="node-input-object" />
+  </div>
+  <div class="form-row">
+    <label><i class="fa fa-search"></i> Search</label>
+    <div style="height: 250px; min-height:150px;" class="node-text-editor" id="node-input-search-editor"></div>
+  </div>
+  <div class="form-row">
+    <label for="node-input-output"><i class="fa fa-sign-out"></i> Output</label>
+    <input type="text" id="node-input-output" />
+    <input type="hidden" id="node-input-output-type" />
+  </div>
+</script>
+
+<script type="text/html" data-help-name="hubspot-search">
+  <p>A simple node that converts the message payloads into all lower-case characters</p>
+</script>
