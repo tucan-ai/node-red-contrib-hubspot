@@ -6,9 +6,16 @@ const onInput = (node, config) => async (msg, send, done) => {
     return
   }
 
-  msg[String(config.output || 'payload')] = await node.hubspot.companies.getById(msg[config.inputId])
+  try {
+    msg[String(config.output || 'payload')] = await node.hubspot.companies.getById(msg[config.inputId])
 
-  send(msg)
+    send(msg)
+  } catch (e) {
+    node.error("failed api request to hubspot");
+    done(e.message)
+    return
+  }
+
   done()
 }
 

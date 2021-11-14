@@ -12,6 +12,7 @@
       "hubspot-account": "account/index.js",
       "hubspot-api-request": "api-request/index.js",
       "hubspot-company-get-by-id": "company/get-by-id/index.js",
+      "hubspot-company-create": "company/create/index.js",
       "hubspot-company-update": "company/update/index.js",
       "hubspot-deal-get-by-id": "deal/get-by-id/index.js",
       "hubspot-deal-create": "deal/create/index.js",

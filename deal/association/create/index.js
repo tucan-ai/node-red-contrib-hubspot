@@ -1,22 +1,13 @@
+
 const onInput = (node, config) => async (msg, send, done) => {
-  if (!config.method || !config.path) {
-    node.error("method and path must be defined!");
+  if (!['number', 'string'].includes(typeof msg.payload)) {
+    node.error("payload should be either string or number");
 
     return
   }
 
-  let body = null
-
-  if (config.body === 'payload') {
-    body = msg.payload
-  }
-
   try {
-    msg[String(config.output || 'payload')] = await node.hubspot.apiRequest({
-      method: config.method,
-      path: config.path,
-      body,
-    })
+    msg[String(config.output || 'payload')] = await node.hubspot.deals.associate(msg.payload)
 
     send(msg)
   } catch (e) {
@@ -42,5 +33,5 @@ module.exports = (RED) => {
     this.on('input', onInput(this, config))
   }
 
-  RED.nodes.registerType("hubspot-api-request", node);
+  RED.nodes.registerType("hubspot-deal-association-create", node);
 }

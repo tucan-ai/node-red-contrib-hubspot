@@ -1,34 +1,21 @@
 <script type="text/javascript">
-  RED.nodes.registerType('hubspot-search',{
+  RED.nodes.registerType('hubspot-deal-association-create',{
     category: 'hubspot',
-    paletteLabel: 'Search',
+    paletteLabel: 'Create Deal Association',
     color: '#ff7a59',
     icon: "font-awesome/fa-search",
     defaults: {
       account: { value: "", type: "hubspot-account", required: true },
       name: { value: "" },
-      search: { value: "{}" },
-      object: { value: "companies", required: true },
+      inputDealId: { value: "", required: true },
+      inputLinkType: { value: "", required: true },
+      inputLinkId: { value: "", required: true },
       output: { value: "payload", required: true },
     },
     inputs: 1,
-    outputs: 3,
-    outputLabels: [
-      'One Result',
-      'More than one Result',
-      'No Results'
-    ],
+    outputs: 1,
     label: function() {
-      return this.name || "Search";
-    },
-    oneditsave: function() {
-      this.search = this.editor.getValue();
-      this.editor.destroy();
-      delete this.editor;
-    },
-    oneditcancel: function() {
-      this.editor.destroy();
-      delete this.editor;
+      return this.name || "Create Deal Association";
     },
     oneditprepare: function() {
       $("#node-input-output").typedInput({
@@ -36,7 +23,17 @@
         types:["msg"],
         typeField: "#node-input-output-type"
       })
-      $("#node-input-object").typedInput({
+      $("#node-input-inputDealId").typedInput({
+        type:"msg",
+        types:["msg"],
+        typeField: "#node-input-inputDealId-type"
+      })
+      $("#node-input-inputLinkId").typedInput({
+        type:"msg",
+        types:["msg"],
+        typeField: "#node-input-inputLinkId-type"
+      })
+      $("#node-input-inputLinkType").typedInput({
         types: [
           {
             value: "companies",
@@ -52,40 +49,40 @@
           }
         ]
       })
-      this.editor = RED.editor.createEditor({
-        id: 'node-input-search-editor',
-        type:"template",
-        mode: 'ace/mode/json',
-        value: this.search
-      })
     }
   });
 </script>
 
-<script type="text/html" data-template-name="hubspot-search">
+<script type="text/html" data-template-name="hubspot-deal-association-create">
   <div class="form-row">
     <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-    <input type="text" id="node-input-name" placeholder="Name" />
+    <input type="text" id="node-input-name" placeholder="Name">
   </div>
   <div class="form-row">
     <label for="node-input-account"><i class="fa fa-institution"></i> Hubspot</label>
     <input type="text" id="node-input-account" />
   </div>
   <div class="form-row">
-    <label for="node-input-object"><i class="fa fa-institution"></i> Object</label>
-    <input type="text" id="node-input-object" />
+    <label for="node-input-inputDealId"><i class="fa fa-sign-out"></i> Deal ID</label>
+    <input type="text" id="node-input-inputDealId">
+    <input type="hidden" id="node-input-inputDealId-type">
   </div>
   <div class="form-row">
-    <label><i class="fa fa-search"></i> Search</label>
-    <div style="height: 250px; min-height:150px;" class="node-text-editor" id="node-input-search-editor"></div>
+    <label for="node-input-inputLinkType"><i class="fa fa-sign-out"></i> Link Type</label>
+    <input type="text" id="node-input-inputLinkType">
+  </div>
+  <div class="form-row">
+    <label for="node-input-inputLinkId"><i class="fa fa-sign-out"></i> Link ID</label>
+    <input type="text" id="node-input-inputLinkId">
+    <input type="hidden" id="node-input-inputLinkId-type">
   </div>
   <div class="form-row">
     <label for="node-input-output"><i class="fa fa-sign-out"></i> Output</label>
-    <input type="text" id="node-input-output" />
-    <input type="hidden" id="node-input-output-type" />
+    <input type="text" id="node-input-output">
+    <input type="hidden" id="node-input-output-type">
   </div>
 </script>
 
-<script type="text/html" data-help-name="hubspot-search">
+<script type="text/html" data-help-name="hubspot-deal-association-create">
   <p>A simple node that converts the message payloads into all lower-case characters</p>
 </script>
