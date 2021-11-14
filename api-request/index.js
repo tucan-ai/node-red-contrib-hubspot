@@ -1,4 +1,3 @@
-
 const onInput = (node, config) => async (msg, send, done) => {
  if (!config.method || !config.path) {
    node.error("method and path must be defined!");

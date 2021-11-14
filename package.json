@@ -9,10 +9,16 @@
   ],
   "node-red": {
     "nodes": {
-      "hubspot-account": "account/account.js",
-      "hubspot-api-request": "api-request/api-request.js",
-      "hubspot-company-get-by-id": "company/get-by-id/get-by-id.js",
-      "hubspot-search": "search/search.js"
+      "hubspot-account": "account/index.js",
+      "hubspot-api-request": "api-request/index.js",
+      "hubspot-company-get-by-id": "company/get-by-id/index.js",
+      "hubspot-company-update": "company/update/index.js",
+      "hubspot-deal-get-by-id": "deal/get-by-id/index.js",
+      "hubspot-deal-create": "deal/create/index.js",
+      "hubspot-deal-update": "deal/update/index.js",
+      "hubspot-deal-association-create": "deal/association/create/index.js",
+      "hubspot-deal-association-delete": "deal/association/delete/index.js",
+      "hubspot-search": "search/index.js"
     }
   },
   "dependencies": {

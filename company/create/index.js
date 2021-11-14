@@ -1,12 +1,6 @@
 
 const onInput = (node, config) => async (msg, send, done) => {
-  if (!['number', 'string'].includes(typeof msg.payload)) {
-    node.error("payload should be either string or number");
-
-    return
-  }
-
-  msg[String(config.output || 'payload')] = await node.hubspot.companies.getById(msg.payload)
+  msg[String(config.output || 'payload')] = await node.hubspot.companies.create(msg[config.inputData])
 
   send(msg)
   done()
@@ -26,5 +20,5 @@ module.exports = (RED) => {
     this.on('input', onInput(this, config))
   }
 
-  RED.nodes.registerType("hubspot-company-get-by-id", node);
+  RED.nodes.registerType("hubspot-deal-create", node);
 }

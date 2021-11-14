@@ -1,0 +1,56 @@
+<script type="text/javascript">
+  RED.nodes.registerType('hubspot-company-create',{
+    category: 'hubspot',
+    paletteLabel: 'Create Company',
+    color: '#ff7a59',
+    icon: "font-awesome/fa-search",
+    defaults: {
+      account: { value: "", type: "hubspot-account", required: true },
+      name: { value: "" },
+      inputData: { value: 'payload', required: true },
+      output: { value: "payload", required: true },
+    },
+    inputs: 1,
+    outputs: 1,
+    label: function() {
+      return this.name || "Create Company";
+    },
+    oneditprepare: function() {
+      $("#node-input-output").typedInput({
+        type:"msg",
+        types:["msg"],
+        typeField: "#node-input-output-type"
+      })
+      $("#node-input-inputData").typedInput({
+        type:"msg",
+        types:["msg"],
+        typeField: "#node-input-inputData-type"
+      })
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="hubspot-company-create">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-account"><i class="fa fa-institution"></i> Hubspot</label>
+    <input type="text" id="node-input-account" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-inputData"><i class="fa fa-sign-in"></i> Data</label>
+    <input type="text" id="node-input-inputData">
+    <input type="hidden" id="node-input-id-inputData">
+  </div>
+  <div class="form-row">
+    <label for="node-input-output"><i class="fa fa-sign-out"></i> Output</label>
+    <input type="text" id="node-input-output">
+    <input type="hidden" id="node-input-output-type">
+  </div>
+</script>
+
+<script type="text/html" data-help-name="hubspot-company-create">
+  <p>A simple node that converts the message payloads into all lower-case characters</p>
+</script>

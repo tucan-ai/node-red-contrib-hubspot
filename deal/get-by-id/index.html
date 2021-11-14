@@ -1,18 +1,19 @@
 <script type="text/javascript">
-  RED.nodes.registerType('hubspot-company-get-by-id',{
+  RED.nodes.registerType('hubspot-deal-get-by-id',{
     category: 'hubspot',
-    paletteLabel: 'Get Company by Id',
+    paletteLabel: 'Deal by Id',
     color: '#ff7a59',
     icon: "font-awesome/fa-search",
     defaults: {
-      account: { value: "", type: "hubspot-account" },
+      account: { value: "", type: "hubspot-account", required: true },
       name: { value: "" },
-      output: { value: "payload" },
+      inputId: { value: 'id', required: true },
+      output: { value: "payload", required: true },
     },
     inputs: 1,
     outputs: 1,
     label: function() {
-      return this.name || "Get Company by Id";
+      return this.name || "Deal by Id";
     },
     oneditprepare: function() {
       $("#node-input-output").typedInput({
@@ -20,11 +21,16 @@
         types:["msg"],
         typeField: "#node-input-output-type"
       })
+      $("#node-input-inputId").typedInput({
+        type:"msg",
+        types:["msg"],
+        typeField: "#node-input-inputId-type"
+      })
     }
   });
 </script>
 
-<script type="text/html" data-template-name="hubspot-company-get-by-id">
+<script type="text/html" data-template-name="hubspot-deal-get-by-id">
   <div class="form-row">
     <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
     <input type="text" id="node-input-name" placeholder="Name">
@@ -34,12 +40,17 @@
     <input type="text" id="node-input-account" />
   </div>
   <div class="form-row">
+    <label for="node-input-inputId"><i class="fa fa-sign-in"></i> ID</label>
+    <input type="text" id="node-input-inputId">
+    <input type="hidden" id="node-input-inputId-type">
+  </div>
+  <div class="form-row">
     <label for="node-input-output"><i class="fa fa-sign-out"></i> Output</label>
     <input type="text" id="node-input-output">
     <input type="hidden" id="node-input-output-type">
   </div>
 </script>
 
-<script type="text/html" data-help-name="hubspot-company-get-by-id">
+<script type="text/html" data-help-name="hubspot-deal-get-by-id">
   <p>A simple node that converts the message payloads into all lower-case characters</p>
 </script>
