@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "description": "Hubspot integration for Node-Red",
   "repository": "git@gitlab.com:tucan-ai/backend/node-red-contrib-hubspot.git",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "keywords": [
     "node-red"
   ],
@@ -22,6 +22,16 @@
       "hubspot-search": "search/index.js"
     }
   },
+  "author": {
+    "name": "Tucan.ai",
+    "url": "https://www.tucan.ai"
+  },
+  "contributors": [
+    {
+      "name": "Michael Schramm",
+      "url": "https://github.com/wodka"
+    }
+  ],
   "dependencies": {
     "hubspot": "^2.3.14",
     "mustache": "^4.2.0"
