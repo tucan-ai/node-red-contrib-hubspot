@@ -12,11 +12,11 @@ const onInput = (node, config) => async (msg, send, done) => {
   }
 
   try {
-    msg[String(config.output || 'payload')] = await node.hubspot.apiRequest({
+    msg[String(config.output || 'payload')] = (await node.hubspot.apiRequest({
       method: config.method,
       path: config.path,
       body,
-    })
+    })).body
 
     send(msg)
   } catch (e) {

@@ -66,11 +66,11 @@ const onInput = (node, config) => async (msg, send, done) => {
   let response
 
   try {
-    response = await node.hubspot.apiRequest({
+    response = (await node.hubspot.apiRequest({
       method: 'POST',
       path: `/crm/v3/objects/${config.object}/search`,
       body,
-    })
+    })).body
   } catch (e) {
     node.error("failed api request to hubspot");
     done(e.message)
@@ -105,7 +105,8 @@ const onInput = (node, config) => async (msg, send, done) => {
       null,
     ])
   } else {
-    this.warn("something wrong with received result");
+    node.warn("something wrong with received result");
+    console.log('response', response)
   }
 
   done()
