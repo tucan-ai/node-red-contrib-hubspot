@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-hubspot",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Hubspot integration for Node-Red",
   "repository": "git@gitlab.com:tucan-ai/backend/node-red-contrib-hubspot.git",
   "license": "Apache-2.0",
