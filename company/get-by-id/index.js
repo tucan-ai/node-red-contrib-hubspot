@@ -7,11 +7,11 @@ const onInput = (node, config) => async (msg, send, done) => {
   }
 
   try {
-    msg[String(config.output || 'payload')] = await node.hubspot.companies.getById(msg[config.inputId])
+    msg[String(config.output || 'payload')] = (await node.hubspot.crm.companies.basicApi.getById(msg[config.inputId])).body
 
     send(msg)
   } catch (e) {
-    node.error("failed api request to hubspot");
+    node.error("failed api request to hubspot!!!!");
     done(e.message)
     return
   }

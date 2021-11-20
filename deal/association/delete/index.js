@@ -1,15 +1,25 @@
+const {getSingular} = require("../../../utils/crm.types")
 
 const onInput = (node, config) => async (msg, send, done) => {
-  if (!['number', 'string'].includes(typeof msg.payload)) {
-    node.error("payload should be either string or number");
+  if (
+    !msg[config.inputDealId]
+    || !msg[config.inputLinkType]
+    || !msg[config.inputLinkId]
+  ) {
+    node.error(`msg.${config.inputDealId} must be set`);
+    node.error(`msg.${config.inputLinkType} must be set`);
+    node.error(`msg.${config.inputLinkId} must be set`);
 
     return
   }
 
   try {
-    msg[String(config.output || 'payload')] = await node.hubspot.deals.removeAssociation(
-      msg.payload
-    )
+    msg[String(config.output || 'payload')] = (await node.hubspot.crm.deals.associationsApi.archive(
+      msg[String(config.inputDealId)],
+      msg[String(config.inputLinkType)],
+      msg[String(config.inputLinkId)],
+      `deal_to_${getSingular(msg[String(config.inputLinkType)])}`
+    )).body
 
     send(msg)
   } catch (e) {

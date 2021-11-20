@@ -1,7 +1,7 @@
 
 const onInput = (node, config) => async (msg, send, done) => {
   try {
-    msg[String(config.output || 'payload')] = await node.hubspot.contacts.create(msg[config.inputData])
+    msg[String(config.output || 'payload')] = (await node.hubspot.crm.contacts.basicApi.create(msg[config.inputData])).body
 
     send(msg)
   } catch (e) {

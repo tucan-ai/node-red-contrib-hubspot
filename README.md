@@ -17,7 +17,7 @@ Or run the following command in the root directory of your Node-RED installation
 
 The nodes are tested with `Node.js v16.6.0` and `Node-RED v2.1.3`.
 
-- [node-hubspot](https://github.com/MadKudu/node-hubspot)
+- [@hubspot/api-client](https://github.com/HubSpot/hubspot-api-nodejs)
 - [mustache.js](https://github.com/janl/mustache.js)
 
 # Changelog

@@ -36,7 +36,7 @@
     }
   ],
   "dependencies": {
-    "hubspot": "^2.3.14",
+    "@hubspot/api-client": "^5.0.0",
     "mustache": "^4.2.0"
   }
 }

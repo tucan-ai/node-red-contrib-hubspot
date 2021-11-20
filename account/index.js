@@ -1,10 +1,10 @@
 module.exports = (RED) => {
-  const Hubspot = require('hubspot')
+  const hubspot = require('@hubspot/api-client')
 
   function node(config) {
     RED.nodes.createNode(this, config);
 
-    this.hubspot = new Hubspot({
+    this.hubspot = new hubspot.Client({
       apiKey: config.apikey,
     })
   }

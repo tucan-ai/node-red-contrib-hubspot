@@ -7,7 +7,7 @@ const onInput = (node, config) => async (msg, send, done) => {
   }
 
   try {
-    msg[String(config.output || 'payload')] = await node.hubspot.deals.getById(msg[config.inputId])
+    msg[String(config.output || 'payload')] = (await node.hubspot.crm.deals.basicApi.getById(msg[config.inputId])).body
 
     send(msg)
   } catch (e) {
