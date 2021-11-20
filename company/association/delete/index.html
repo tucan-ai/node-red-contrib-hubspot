@@ -1,0 +1,88 @@
+<script type="text/javascript">
+  RED.nodes.registerType('hubspot-company-association-delete',{
+    category: 'hubspot',
+    paletteLabel: 'Delete Company Association',
+    color: '#ff7a59',
+    icon: "font-awesome/fa-search",
+    defaults: {
+      account: { value: "", type: "hubspot-account", required: true },
+      name: { value: "" },
+      inputCompanyId: { value: "", required: true },
+      inputLinkType: { value: "", required: true },
+      inputLinkId: { value: "", required: true },
+      output: { value: "payload", required: true },
+    },
+    inputs: 1,
+    outputs: 1,
+    label: function() {
+      return this.name || "Delete Company Association";
+    },
+    oneditprepare: function() {
+      $("#node-input-output").typedInput({
+        type:"msg",
+        types:["msg"],
+        typeField: "#node-input-output-type"
+      })
+      $("#node-input-inputCompanyId").typedInput({
+        type:"msg",
+        types:["msg"],
+        typeField: "#node-input-inputCompanyId-type"
+      })
+      $("#node-input-inputLinkId").typedInput({
+        type:"msg",
+        types:["msg"],
+        typeField: "#node-input-inputLinkId-type"
+      })
+      $("#node-input-inputLinkType").typedInput({
+        types: [
+          {
+            value: "companies",
+            options: [
+              { value: "companies", label: "Companies"},
+              { value: "contacts", label: "Contacts"},
+              { value: "deals", label: "Deals"},
+              { value: "products", label: "Products"},
+              { value: "tickets", label: "Tickets"},
+              { value: "line_items", label: "Line_items"},
+              { value: "quotes", label: "Quotes"},
+            ]
+          }
+        ]
+      })
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="hubspot-company-association-delete">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-account"><i class="fa fa-institution"></i> Hubspot</label>
+    <input type="text" id="node-input-account" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-inputCompanyId"><i class="fa fa-sign-out"></i> company ID</label>
+    <input type="text" id="node-input-inputCompanyId">
+    <input type="hidden" id="node-input-inputCompanyId-type">
+  </div>
+  <div class="form-row">
+    <label for="node-input-inputLinkType"><i class="fa fa-sign-out"></i> Link Type</label>
+    <input type="text" id="node-input-inputLinkType">
+  </div>
+  <div class="form-row">
+    <label for="node-input-inputLinkId"><i class="fa fa-sign-out"></i> Link ID</label>
+    <input type="text" id="node-input-inputLinkId">
+    <input type="hidden" id="node-input-inputLinkId-type">
+  </div>
+  <div class="form-row">
+    <label for="node-input-output"><i class="fa fa-sign-out"></i> Output</label>
+    <input type="text" id="node-input-output">
+    <input type="hidden" id="node-input-output-type">
+  </div>
+</script>
+
+<script type="text/html" data-help-name="hubspot-company-association-delete">
+  <p>A simple node that converts the message payloads into all lower-case characters</p>
+</script>
