@@ -1,0 +1,67 @@
+<script type="text/javascript">
+  RED.nodes.registerType('hubspot-contact-update',{
+    category: 'hubspot',
+    paletteLabel: 'Update Contact',
+    color: '#ff7a59',
+    icon: "font-awesome/fa-search",
+    defaults: {
+      account: { value: "", type: "hubspot-account" },
+      name: { value: "" },
+      inputId: { value: 'id', required: true },
+      inputData: { value: 'payload', required: true },
+      output: { value: "payload", required: true },
+    },
+    inputs: 1,
+    outputs: 1,
+    label: function() {
+      return this.name || "Update Contact";
+    },
+    oneditprepare: function() {
+      $("#node-input-output").typedInput({
+        type:"msg",
+        types:["msg"],
+        typeField: "#node-input-output-type"
+      })
+      $("#node-input-inputData").typedInput({
+        type:"msg",
+        types:["msg"],
+        typeField: "#node-input-inputData-type"
+      })
+      $("#node-input-inputId").typedInput({
+        type:"msg",
+        types:["msg"],
+        typeField: "#node-input-inputId-type"
+      })
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="hubspot-contact-update">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-account"><i class="fa fa-institution"></i> Hubspot</label>
+    <input type="text" id="node-input-account" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-inputId"><i class="fa fa-sign-in"></i> ID</label>
+    <input type="text" id="node-input-inputId">
+    <input type="hidden" id="node-input-inputId-type">
+  </div>
+  <div class="form-row">
+    <label for="node-input-inputData"><i class="fa fa-sign-in"></i> Data</label>
+    <input type="text" id="node-input-inputData">
+    <input type="hidden" id="node-input-inputData-type">
+  </div>
+  <div class="form-row">
+    <label for="node-input-output"><i class="fa fa-sign-out"></i> Output</label>
+    <input type="text" id="node-input-output">
+    <input type="hidden" id="node-input-output-type">
+  </div>
+</script>
+
+<script type="text/html" data-help-name="hubspot-contact-update">
+  <p>A simple node that converts the message payloads into all lower-case characters</p>
+</script>
