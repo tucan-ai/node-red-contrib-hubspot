@@ -10,6 +10,12 @@ uibuilder adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Nothing currently.
 
+## [0.4.2](https://github.com/tucan-ai/node-red-contrib-hubspot/releases/tag/v0.4.2)
+
+### fixed
+
+* association type is not taken from configuration
+
 ## [0.4.1](https://github.com/tucan-ai/node-red-contrib-hubspot/releases/tag/v0.4.1)
 
 ### fixed

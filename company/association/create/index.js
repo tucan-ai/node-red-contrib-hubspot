@@ -3,11 +3,9 @@ const {getSingular} = require("../../../utils/crm.types")
 const onInput = (node, config) => async (msg, send, done) => {
   if (
     !msg[config.inputCompanyId]
-    || !msg[config.inputLinkType]
     || !msg[config.inputLinkId]
   ) {
     node.error(`msg.${config.inputCompanyId} must be set`);
-    node.error(`msg.${config.inputLinkType} must be set`);
     node.error(`msg.${config.inputLinkId} must be set`);
 
     return
@@ -16,9 +14,9 @@ const onInput = (node, config) => async (msg, send, done) => {
   try {
     msg[String(config.output || 'payload')] = (await node.hubspot.crm.companies.associationsApi.create(
       msg[String(config.inputCompanyId)],
-      msg[String(config.inputLinkType)],
+      config.inputLinkType,
       msg[String(config.inputLinkId)],
-      `company_to_${getSingular(msg[String(config.inputLinkType)])}`
+      `company_to_${getSingular(config.inputLinkType)}`
     )).body
 
     send(msg)
