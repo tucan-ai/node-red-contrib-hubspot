@@ -17,14 +17,14 @@ Object.keys(pluralToSingular).forEach(plural => {
 
 module.exports = {
   getPlural: (singular) => {
-    if (singularToPlural[singular]) {
+    if (!singularToPlural[singular]) {
       throw new Error(`cannot find plural for ${singular}`)
     }
 
     return singularToPlural[singular]
   },
   getSingular: (plural) => {
-    if (pluralToSingular[plural]) {
+    if (!pluralToSingular[plural]) {
       throw new Error(`cannot find singular for ${plural}`)
     }
 
