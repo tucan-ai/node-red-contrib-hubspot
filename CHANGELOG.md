@@ -10,6 +10,13 @@ uibuilder adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Nothing currently.
 
+## [0.5.0](https://github.com/tucan-ai/node-red-contrib-hubspot/releases/tag/v0.5.0)
+
+### Added
+
+* access token authentication
+* developer api key authentication
+
 ## [0.4.3](https://github.com/tucan-ai/node-red-contrib-hubspot/releases/tag/v0.4.3)
 
 ### fixed
