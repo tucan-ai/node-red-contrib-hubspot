@@ -10,6 +10,20 @@ uibuilder adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Nothing currently.
 
+## [0.6.0](https://github.com/tucan-ai/node-red-contrib-hubspot/releases/tag/v0.6.0)
+
+### Added
+
+* oauth flow for app tokens
+
+### Changed
+
+* callback to load hubspot client with potential refresh
+
+### fixed
+
+* contact association delete node registration
+
 ## [0.5.0](https://github.com/tucan-ai/node-red-contrib-hubspot/releases/tag/v0.5.0)
 
 ### Added

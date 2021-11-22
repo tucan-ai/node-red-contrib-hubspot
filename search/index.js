@@ -1,4 +1,11 @@
 const onInput = (node, config) => async (msg, send, done) => {
+  const hubspot = await node.getHubspotWrapper()
+
+  if (!hubspot) {
+    node.error("hubspot account missing");
+    return
+  }
+
   const mustache = require('mustache')
   const NodeContext = require('../utils/mustach.node.context')
   const parseContext = require('../utils/parse.context')
@@ -66,7 +73,7 @@ const onInput = (node, config) => async (msg, send, done) => {
   let response
 
   try {
-    response = (await node.hubspot.apiRequest({
+    response = (await hubspot.apiRequest({
       method: 'POST',
       path: `/crm/v3/objects/${config.object}/search`,
       body,
@@ -117,11 +124,7 @@ module.exports = (RED) => {
   function node(config) {
     RED.nodes.createNode(this, config)
 
-    this.hubspot = RED.nodes.getNode(config.account)?.hubspot
-
-    if (!this.hubspot) {
-      return
-    }
+    this.getHubspotWrapper = () => RED.nodes.getNode(config.account)?.getHubspotWrapper()
 
     this.on('input', onInput(this, config))
   }

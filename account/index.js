@@ -4,11 +4,39 @@ module.exports = (RED) => {
   function node(config) {
     RED.nodes.createNode(this, config);
 
-    this.hubspot = new hubspot.Client({
-      apiKey: config.apikey ? config.apikey : undefined,
-      accessToken: config.accessToken ? config.accessToken : undefined,
-      developerApiKey: config.developerApiKey ? config.developerApiKey : undefined,
-    })
+    let options = {}
+
+    if (config) {
+      options = {
+        apiKey: !config.authMode || config.authMode === 'api-key' ? config.apikey : undefined,
+        accessToken: config.authMode === 'access-token' ? config.accessToken : undefined,
+        developerApiKey: config.authMode === 'developer-api-key' ? config.developerApiKey : undefined,
+      }
+    }
+
+    const client = this.hubspot = new hubspot.Client(options)
+
+    this.getHubspotWrapper = async () => {
+      if (config.authMode === 'oauth2') {
+        // TODO depending on authentication refresh token first!
+
+        if (!this.expiry || this.expiry < Date.now()) {
+          const results = await client.oauth.tokensApi.createToken(
+            'refresh_token',
+            undefined,
+            undefined,
+            config.clientId,
+            config.clientSecret,
+            config.refreshToken
+          )
+
+          this.expiry = results.body.expiresIn * 1000 + Date.now()
+          client.setAccessToken(results.body.accessToken)
+        }
+      }
+
+      return client
+    }
   }
 
   RED.nodes.registerType("hubspot-account", node);

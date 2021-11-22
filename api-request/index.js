@@ -1,4 +1,11 @@
 const onInput = (node, config) => async (msg, send, done) => {
+  const hubspot = await node.getHubspotWrapper()
+
+  if (!hubspot) {
+    node.error("hubspot account missing");
+    return
+  }
+
   if (!config.method || !config.path) {
     node.error("method and path must be defined!");
 
@@ -12,7 +19,7 @@ const onInput = (node, config) => async (msg, send, done) => {
   }
 
   try {
-    msg[String(config.output || 'payload')] = (await node.hubspot.apiRequest({
+    msg[String(config.output || 'payload')] = (await hubspot.apiRequest({
       method: config.method,
       path: config.path,
       body,
@@ -33,11 +40,7 @@ module.exports = (RED) => {
   function node(config) {
     RED.nodes.createNode(this, config)
 
-    this.hubspot = RED.nodes.getNode(config.account)?.hubspot
-
-    if (!this.hubspot) {
-      return
-    }
+    this.getHubspotWrapper = () => RED.nodes.getNode(config.account)?.getHubspotWrapper()
 
     this.on('input', onInput(this, config))
   }

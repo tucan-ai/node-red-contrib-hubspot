@@ -4,12 +4,58 @@
     paletteLabel: 'Hubspot Account',
     defaults: {
       name: { value: "" },
+      authMode: { value: "api-key" },
       apikey: { value: "" },
       accessToken: { value: "" },
       developerApiKey: { value: "" },
+      clientId: { value: "" },
+      clientSecret: { value: "" },
+      refreshToken: { value: "" },
     },
     label: function() {
       return this.name || "Hubspot Account";
+    },
+    oneditprepare: function() {
+      const authMode = $("#node-config-input-authMode")
+      authMode.typedInput({
+        types: [
+          {
+            value: "api-key",
+            options: [
+              { value: 'api-key', label: 'API Key' },
+              { value: 'access-token', label: 'Access Token' },
+              { value: 'developer-api-key', label: 'Developer API Key' },
+              { value: 'oauth2', label: 'Oauth2' },
+            ]
+          }
+        ]
+      })
+
+      const check = () => {
+        $('.account-mode').hide()
+
+        switch (authMode.val()) {
+          case 'access-token':
+            $('.account-access-token').show()
+            break;
+
+          case 'developer-api-key':
+            $('.account-developer-api-key').show()
+            break;
+
+          case 'oauth2':
+            $('.account-oauth2').show()
+            break;
+
+          case 'api-key':
+          default:
+            $('.account-api-key').show()
+            break;
+        }
+      }
+
+      authMode.change(check)
+      check()
     }
   });
 </script>
@@ -21,17 +67,37 @@
   </div>
 
   <div class="form-row">
+    <label for="node-config-input-authMode">Auth Mode</label>
+    <input type="text" id="node-config-input-authMode" />
+  </div>
+
+  <div class="form-row account-mode account-api-key">
     <label for="node-config-input-apikey"><i class="fa fa-key"></i> API Key</label>
     <input type="text" id="node-config-input-apikey">
   </div>
 
-  <div class="form-row">
+  <div class="form-row account-mode account-access-token">
     <label for="node-config-input-accessToken"><i class="fa fa-key"></i> Access Token</label>
     <input type="text" id="node-config-input-accessToken">
   </div>
 
-  <div class="form-row">
+  <div class="form-row account-mode account-oauth2">
+    <label for="node-config-input-refreshToken"><i class="fa fa-key"></i> Refresh Token</label>
+    <input type="text" id="node-config-input-refreshToken">
+  </div>
+
+  <div class="form-row account-mode account-developer-api-key">
     <label for="node-config-input-developerApiKey"><i class="fa fa-key"></i> Developer API Key</label>
     <input type="text" id="node-config-input-developerApiKey">
+  </div>
+
+  <div class="form-row account-mode account-oauth2">
+    <label for="node-config-input-clientId"><i class="fa fa-key"></i> Client ID</label>
+    <input type="text" id="node-config-input-clientId">
+  </div>
+
+  <div class="form-row account-mode account-oauth2">
+    <label for="node-config-input-clientSecret"><i class="fa fa-key"></i> Client Secret</label>
+    <input type="text" id="node-config-input-clientSecret">
   </div>
 </script>

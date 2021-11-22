@@ -1,6 +1,13 @@
 const {getSingular} = require("../../../utils/crm.types")
 
 const onInput = (node, config) => async (msg, send, done) => {
+  const hubspot = await node.getHubspotWrapper()
+
+  if (!hubspot) {
+    node.error("hubspot account missing");
+    return
+  }
+
   if (
     !msg[config.inputContactId]
     || !msg[config.inputLinkId]
@@ -12,7 +19,7 @@ const onInput = (node, config) => async (msg, send, done) => {
   }
 
   try {
-    msg[String(config.output || 'payload')] = (await node.hubspot.crm.contacts.associationsApi.create(
+    msg[String(config.output || 'payload')] = (await hubspot.crm.contacts.associationsApi.create(
       msg[String(config.inputContactId)],
       config.inputLinkType,
       msg[String(config.inputLinkId)],
@@ -34,11 +41,7 @@ module.exports = (RED) => {
   function node(config) {
     RED.nodes.createNode(this, config)
 
-    this.hubspot = RED.nodes.getNode(config.account)?.hubspot
-
-    if (!this.hubspot) {
-      return
-    }
+    this.getHubspotWrapper = () => RED.nodes.getNode(config.account)?.getHubspotWrapper()
 
     this.on('input', onInput(this, config))
   }
