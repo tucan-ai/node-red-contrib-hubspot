@@ -21,17 +21,24 @@ module.exports = (RED) => {
         // TODO depending on authentication refresh token first!
 
         if (!this.expiry || this.expiry < Date.now()) {
-          const results = await client.oauth.tokensApi.createToken(
-            'refresh_token',
-            undefined,
-            undefined,
-            config.clientId,
-            config.clientSecret,
-            config.refreshToken
-          )
+          try {
+            const results = await client.oauth.tokensApi.createToken(
+              'refresh_token',
+              undefined,
+              undefined,
+              config.clientId,
+              config.clientSecret,
+              config.refreshToken
+            )
 
-          this.expiry = results.body.expiresIn * 1000 + Date.now()
-          client.setAccessToken(results.body.accessToken)
+            this.expiry = results.body.expiresIn * 1000 + Date.now()
+            client.setAccessToken(results.body.accessToken)
+          } catch (e) {
+            this.error({
+              _: 'failed to refresh oauth2 token',
+              error: e
+            })
+          }
         }
       }
 
