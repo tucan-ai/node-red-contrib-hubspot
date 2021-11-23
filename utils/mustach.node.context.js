@@ -42,8 +42,7 @@ NodeContext.prototype.lookup = function (name) {
       }
     }
     return '';
-  }
-  catch(err) {
+  } catch(err) {
     throw err;
   }
 }

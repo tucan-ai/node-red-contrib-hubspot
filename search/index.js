@@ -44,7 +44,10 @@ const onInput = (node, config) => async (msg, send, done) => {
   try {
     await Promise.all(promises)
   } catch (e) {
-    node.error("failed to prepare tokens");
+    node.error({
+      _: "failed to prepare tokens",
+      error: e
+    });
     done(e.message)
     return
   }
@@ -63,12 +66,18 @@ const onInput = (node, config) => async (msg, send, done) => {
   try {
     body = JSON.parse(body)
   } catch (e) {
-    node.error(`search template is invalid json: \n${body}`);
+    node.error({
+      _: `search template is invalid json`,
+      body
+    });
     done(e.message)
     return
   }
 
-  node.log(`execute search request: \n${JSON.stringify(body, undefined, 2)}`)
+  node.log({
+    _: 'execute search request',
+    body
+  })
 
   let response
 
@@ -79,7 +88,10 @@ const onInput = (node, config) => async (msg, send, done) => {
       body,
     })).body
   } catch (e) {
-    node.error("failed api request to hubspot");
+    node.error({
+      _: "failed api request to hubspot",
+      error: e
+    });
     done(e.message)
     return
   }
@@ -112,8 +124,10 @@ const onInput = (node, config) => async (msg, send, done) => {
       null,
     ])
   } else {
-    node.warn("something wrong with received result");
-    console.log('response', response)
+    node.warn({
+      _: "something wrong with received result",
+      response
+    });
   }
 
   done()
