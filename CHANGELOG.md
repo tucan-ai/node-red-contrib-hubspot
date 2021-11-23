@@ -8,6 +8,10 @@ uibuilder adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased](https://github.com/tucan-ai/node-red-contrib-hubspot/compare/v0.2.0...main)
 
+nothing yet
+
+## [0.7.0](https://github.com/tucan-ai/node-red-contrib-hubspot/releases/tag/v0.7.0)
+
 ### Added
 
 * catch error in refresh of oauth2 tokens
