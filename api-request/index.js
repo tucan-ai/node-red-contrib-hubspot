@@ -29,6 +29,7 @@ const onInput = (node, config) => async (msg, send, done) => {
   } catch (e) {
     node.error({
       _: "failed api request to hubspot",
+      body,
       error: e
     });
     done(e.message)

@@ -74,11 +74,6 @@ const onInput = (node, config) => async (msg, send, done) => {
     return
   }
 
-  node.log({
-    _: 'execute search request',
-    body
-  })
-
   let response
 
   try {
@@ -90,6 +85,7 @@ const onInput = (node, config) => async (msg, send, done) => {
   } catch (e) {
     node.error({
       _: "failed api request to hubspot",
+      search: body,
       error: e
     });
     done(e.message)
