@@ -6,9 +6,16 @@ uibuilder adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ----
 
-## [Unreleased](https://github.com/tucan-ai/node-red-contrib-hubspot/compare/v0.2.0...main)
+## [Unreleased](https://github.com/tucan-ai/node-red-contrib-hubspot/compare/v0.8.0...main)
 
 nothing yet
+
+## [0.8.0](https://github.com/tucan-ai/node-red-contrib-hubspot/releases/tag/v0.8.0)
+
+### Added
+
+* add associations to get by id for company, deal and contact
+* add properties to get by id for company, deal and contact
 
 ## [0.7.0](https://github.com/tucan-ai/node-red-contrib-hubspot/releases/tag/v0.7.0)
 
