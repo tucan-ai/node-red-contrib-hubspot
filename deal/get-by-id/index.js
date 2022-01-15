@@ -14,7 +14,11 @@ const onInput = (node, config) => async (msg, send, done) => {
   }
 
   try {
-    msg[String(config.output || 'payload')] = (await hubspot.crm.deals.basicApi.getById(msg[config.inputId])).body
+    msg[String(config.output || 'payload')] = (await hubspot.crm.deals.basicApi.getById(
+      msg[config.inputId],
+      config.properties ? config.properties.split(',') : [],
+      config.associations ? config.associations.split(',') : [],
+    )).body
 
     send(msg)
   } catch (e) {

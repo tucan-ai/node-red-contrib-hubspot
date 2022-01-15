@@ -8,6 +8,8 @@
       account: { value: "", type: "hubspot-account" },
       name: { value: "" },
       inputId: { value: 'id', required: true },
+      associations: { value: "" },
+      properties: { value: "" },
       output: { value: "payload", required: true },
     },
     inputs: 1,
@@ -43,6 +45,14 @@
     <label for="node-input-inputId"><i class="fa fa-sign-in"></i> ID</label>
     <input type="text" id="node-input-inputId">
     <input type="hidden" id="node-input-inputId-type">
+  </div>
+  <div class="form-row">
+    <label for="node-input-associations"><i class="fa fa-tag"></i> Associations</label>
+    <input type="text" id="node-input-associations" placeholder="Comma Separated Associations">
+  </div>
+  <div class="form-row">
+    <label for="node-input-properties"><i class="fa fa-tag"></i> Properties</label>
+    <input type="text" id="node-input-properties" placeholder="Comma Separated Properties">
   </div>
   <div class="form-row">
     <label for="node-input-output"><i class="fa fa-sign-out"></i> Output</label>
