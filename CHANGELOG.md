@@ -6,9 +6,15 @@ uibuilder adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ----
 
-## [Unreleased](https://github.com/tucan-ai/node-red-contrib-hubspot/compare/v0.8.0...main)
+## [Unreleased](https://github.com/tucan-ai/node-red-contrib-hubspot/compare/v0.8.1...main)
 
 nothing yet
+
+## [0.8.1](https://github.com/tucan-ai/node-red-contrib-hubspot/releases/tag/v0.8.1)
+
+### Added
+
+* improved errors with message from hubspot
 
 ## [0.8.0](https://github.com/tucan-ai/node-red-contrib-hubspot/releases/tag/v0.8.0)
 
