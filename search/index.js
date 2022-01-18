@@ -1,8 +1,10 @@
+const {showErrorAndFinish} = require("../utils/build.hubspot.error")
+
 const onInput = (node, config) => async (msg, send, done) => {
   const hubspot = await node.getHubspotWrapper()
 
   if (!hubspot) {
-    node.error("hubspot account missing");
+    showErrorAndFinish("hubspot account missing", node, done);
     return
   }
 
@@ -44,11 +46,9 @@ const onInput = (node, config) => async (msg, send, done) => {
   try {
     await Promise.all(promises)
   } catch (e) {
-    node.error({
-      _: "failed to prepare tokens",
-      error: e
+    showErrorAndFinish(e, node, done, {
+      problem: 'failed to prepare tokens',
     });
-    done(e.message)
     return
   }
 
@@ -66,11 +66,9 @@ const onInput = (node, config) => async (msg, send, done) => {
   try {
     body = JSON.parse(body)
   } catch (e) {
-    node.error({
-      _: `search template is invalid json`,
-      body
+    showErrorAndFinish(e, node, done, {
+      problem: 'search template is invalid json'
     });
-    done(e.message)
     return
   }
 
@@ -83,12 +81,9 @@ const onInput = (node, config) => async (msg, send, done) => {
       body,
     })).body
   } catch (e) {
-    node.error({
-      _: "failed api request to hubspot",
+    showErrorAndFinish(e, node, done, {
       search: body,
-      error: e
     });
-    done(e.message)
     return
   }
 
@@ -120,10 +115,11 @@ const onInput = (node, config) => async (msg, send, done) => {
       null,
     ])
   } else {
-    node.warn({
-      _: "something wrong with received result",
-      response
+    showErrorAndFinish("something wrong with received result", node, done, {
+      search: body,
+      response,
     });
+    return
   }
 
   done()

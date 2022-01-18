@@ -1,10 +1,11 @@
 const {getSingular} = require("../../../utils/crm.types")
+const {showErrorAndFinish} = require("../../../utils/build.hubspot.error")
 
 const onInput = (node, config) => async (msg, send, done) => {
   const hubspot = await node.getHubspotWrapper()
 
   if (!hubspot) {
-    node.error("hubspot account missing");
+    showErrorAndFinish("hubspot account missing", node, done);
     return
   }
 
@@ -12,8 +13,7 @@ const onInput = (node, config) => async (msg, send, done) => {
     !msg[config.inputContactId]
     || !msg[config.inputLinkId]
   ) {
-    node.error(`msg.${config.inputContactId} must be set`);
-    node.error(`msg.${config.inputLinkId} must be set`);
+    showErrorAndFinish(`msg.${config.inputContactId} and msg.${config.inputLinkId} must be set`, node, done);
 
     return
   }
@@ -28,11 +28,11 @@ const onInput = (node, config) => async (msg, send, done) => {
 
     send(msg)
   } catch (e) {
-    node.error({
-      _: "failed api request to hubspot",
-      error: e
+    showErrorAndFinish(e, node, done, {
+      contactId: msg[String(config.inputContactId)],
+      linkType: config.inputLinkType,
+      linkId: msg[String(config.inputLinkId)],
     });
-    done(e.message)
     return
   }
 

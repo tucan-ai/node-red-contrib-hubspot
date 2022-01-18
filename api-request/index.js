@@ -1,13 +1,14 @@
+const {showErrorAndFinish} = require("../utils/build.hubspot.error")
 const onInput = (node, config) => async (msg, send, done) => {
   const hubspot = await node.getHubspotWrapper()
 
   if (!hubspot) {
-    node.error("hubspot account missing");
+    showErrorAndFinish("hubspot account missing", node, done);
     return
   }
 
   if (!config.method || !config.path) {
-    node.error("method and path must be defined!");
+    showErrorAndFinish("method and path must be defined!", node, done);
 
     return
   }
@@ -27,12 +28,10 @@ const onInput = (node, config) => async (msg, send, done) => {
 
     send(msg)
   } catch (e) {
-    node.error({
-      _: "failed api request to hubspot",
-      body,
-      error: e
+    showErrorAndFinish(e, node, done, {
+      method: config.method,
+      path: config.path,
     });
-    done(e.message)
     return
   }
 

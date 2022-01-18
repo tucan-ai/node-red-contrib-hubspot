@@ -1,15 +1,17 @@
+const {showErrorAndFinish} = require("../../utils/build.hubspot.error")
 
 const onInput = (node, config) => async (msg, send, done) => {
   const hubspot = await node.getHubspotWrapper()
 
   if (!hubspot) {
-    node.error("hubspot account missing");
+    showErrorAndFinish("hubspot account missing", node, done);
     return
   }
 
   if (!['number', 'string'].includes(typeof msg[config.inputId])) {
-    node.error(`msg.${config.inputId} should be either string or number`);
-
+    showErrorAndFinish(`msg.${config.inputId} should be either string or number`, node, done, {
+      type: typeof msg[config.inputId],
+    })
     return
   }
 
@@ -21,12 +23,10 @@ const onInput = (node, config) => async (msg, send, done) => {
 
     send(msg)
   } catch (e) {
-    node.error({
-      _: "failed api request to hubspot",
-      input: msg[config.inputData],
-      error: e
-    });
-    done(e.message)
+    showErrorAndFinish(e, node, done, {
+      id: msg[config.inputId],
+      data: msg[config.inputData]
+    })
     return
   }
 
