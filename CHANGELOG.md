@@ -10,6 +10,12 @@ uibuilder adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 nothing yet
 
+## [0.8.2](https://github.com/tucan-ai/node-red-contrib-hubspot/releases/tag/v0.8.2)
+
+### Added
+
+* add rate limiter
+
 ## [0.8.1](https://github.com/tucan-ai/node-red-contrib-hubspot/releases/tag/v0.8.1)
 
 ### Added
