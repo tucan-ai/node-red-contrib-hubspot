@@ -4,14 +4,55 @@ module.exports = (RED) => {
   function node(config) {
     RED.nodes.createNode(this, config);
 
-    let options = {}
+    const options = {}
 
     if (config) {
-      options = {
-        apiKey: !config.authMode || config.authMode === 'api-key' ? config.apikey : undefined,
-        accessToken: config.authMode === 'access-token' ? config.accessToken : undefined,
-        developerApiKey: config.authMode === 'developer-api-key' ? config.developerApiKey : undefined,
-      }
+      options.apiKey = !config.authMode || config.authMode === 'api-key' ? config.apikey : undefined;
+      options.accessToken = config.authMode === 'access-token' ? config.accessToken : undefined;
+      options.developerApiKey = config.authMode === 'developer-api-key' ? config.developerApiKey : undefined;
+    }
+
+    // https://legacydocs.hubspot.com/apps/api_guidelines
+    options.useLimiter = true
+
+    const burstDuration = config.burstDuration ? Number(config.burstDuration) : 10
+    const burstRequest = config.burstRequest ? Number(config.burstRequest) : 100
+
+    options.limiterOptions = {
+      maxConcurrent: config.concurrent ? Number(config.concurrent) : 5,
+      reservoir: burstRequest,
+      reservoirRefreshAmount: burstRequest,
+      reservoirRefreshInterval: burstDuration * 1000,
+    }
+
+    switch (config?.retries) {
+      case '1':
+        options.numberOfApiCallRetries = hubspot.NumberOfRetries.One;
+        break;
+
+      case '2':
+        options.numberOfApiCallRetries = hubspot.NumberOfRetries.Two;
+        break;
+
+      case '3':
+        options.numberOfApiCallRetries = hubspot.NumberOfRetries.Three;
+        break;
+
+      case '4':
+        options.numberOfApiCallRetries = hubspot.NumberOfRetries.Four;
+        break;
+
+      case '5':
+        options.numberOfApiCallRetries = hubspot.NumberOfRetries.Five;
+        break;
+
+      case '6':
+        options.numberOfApiCallRetries = hubspot.NumberOfRetries.Six;
+        break;
+
+      case '0':
+      default:
+        options.numberOfApiCallRetries = hubspot.NumberOfRetries.NoRetries
     }
 
     const client = this.hubspot = new hubspot.Client(options)

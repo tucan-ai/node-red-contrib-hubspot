@@ -11,6 +11,10 @@
       clientId: { value: "" },
       clientSecret: { value: "" },
       refreshToken: { value: "" },
+      retries: { value: "" },
+      burstDuration: { value: "" },
+      burstRequest: { value: "" },
+      concurrent: { value: "" }
     },
     label: function() {
       return this.name || "Hubspot Account";
@@ -99,5 +103,25 @@
   <div class="form-row account-mode account-oauth2">
     <label for="node-config-input-clientSecret"><i class="fa fa-key"></i> Client Secret</label>
     <input type="text" id="node-config-input-clientSecret">
+  </div>
+
+  <div class="form-row">
+    <label for="node-config-input-retries"><i class="fa fa-key"></i> Number of Retries</label>
+    <input type="number" step="1" min="0" max="6" id="node-config-input-retries" placeholder="No Retries">
+  </div>
+
+  <div class="form-row">
+    <label for="node-config-input-burstRequest"><i class="fa fa-key"></i> Burst Requests</label>
+    <input type="number" step="1" min="100" id="node-config-input-burstRequest" placeholder="100">
+  </div>
+
+  <div class="form-row">
+    <label for="node-config-input-concurrent"><i class="fa fa-key"></i> Concurrent Requests</label>
+    <input type="number" step="1" min="0" id="node-config-input-concurrent" placeholder="5">
+  </div>
+
+  <div class="form-row">
+    <label for="node-config-input-burstDuration"><i class="fa fa-key"></i> Burst Duration in Seconds</label>
+    <input type="number" step="1" min="0" max="1000" id="node-config-input-burstDuration" placeholder="10">
   </div>
 </script>
